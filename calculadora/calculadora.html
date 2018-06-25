@@ -1,0 +1,111 @@
+<!DOCTYPE>
+<html> 
+<head> 
+
+        <title>Calculo de Juros</title> 
+</head> 
+<body background="heheu.jpg"> 
+
+
+<p><h1>Formulario para calculo de juros compostos</h1> 
+<p><b>Como usar:</b> Preencha todos os campos com os formatos pedidos. Capital Empatado e o dinheiro usado 
+no inicio do financiamento/investimento, a taxa de juros (ex: para 2% coloque somente o digito 2) e o Periodo de 
+Capitalizacao e o tempo que este vai levar (preencha com meses). O montante no fim do periodo sera o Capital 
+empatado mais os juros pelo periodo determinado. </p> 
+<FORM  action="juros.php" method="POST" name="formulario"> 
+<p>Capital Empatado: R$ <INPUT TYPE="TEXT"  name="c" size="20" maxlength="20"></p> 
+<p>Taxa de Juros: <INPUT TYPE="TEXT"  name="t" size="5" maxlength="5"> %</p> 
+<p>Periodo de Capitalizacao: <INPUT TYPE="TEXT"  name="n" size="5" maxlength="5"> meses</p> 
+<INPUT TYPE="SUBMIT"  value="Calcula"> 
+<INPUT TYPE="HIDDEN"  name="op" value="calc"> 
+</FORM> 
+
+<script>
+var montante 
+var juros
+var capital
+var tempo
+var i
+var calcular
+var t
+var h
+var porcento
+var absoluto
+
+
+function calcular(){
+    
+    capital = document.getElementById("capital").value;
+    juros = document.getElementById("juros").value / 100;
+    tempo = document.getElementById("tempo").value;
+
+    for (i = 0; i <= tempo; i++) {
+        montante = capital*(Math.pow(1+juros, i));
+        montante = montante.toFixed(2);
+        h = document.createElement("p")
+        t = document.createTextNode("Mês " + i + ':R$' + montante);
+        h.appendChild(t);
+        document.getElementById("resultado").appendChild(h);    
+        
+        absoluto = montante - capital
+        porcento = (absoluto*100)/capital
+        porcento = porcento.toFixed(2)
+
+
+        document.getElementById("show1").value = ("R$"+ absoluto)
+        document.getElementById("show2").value = (porcento)
+if (!$c || !$t || !$n) { 
+
+exit; 
+                       } 
+
+if (is_numeric ($c) and is_numeric ($t) and is_numeric ($n) ) { 
+   $op = 'calc';                                                  } 
+
+      
+
+
+if ($op == 'calc') { 
+$i = ($t/100); 
+$m = ($c* (potencia (1+$i,$n))); 
+ 
+                   } 
+
+function potencia($a,$b){ 
+ $resultado = $a; 
+ while ($b >= 2) { 
+ $resultado *= $a; 
+ $b--; 
+                 } 
+ return $resultado; 
+                       } 
+
+function converte_valor($valor) 
+{ 
+    $valor=str_replace(".", "", $valor); 
+    $tvalor=substr("$valor", 0, -2); 
+    $vfinal=substr("$valor", -2); 
+    $nvalor=""; 
+    while (strlen($tvalor>3)) 
+    { 
+            if (strlen($nvalor)>0) 
+            { 
+                $nvalor=substr($tvalor, -3).".".$nvalor; 
+            } 
+            else 
+            { 
+                $nvalor=substr($tvalor, -3); 
+            } 
+            $tvalor=substr($tvalor, 0,-3); 
+    } 
+    if ((strlen($tvalor)<3)and (strlen($tvalor)!=0)) 
+    { 
+        $nvalor=$tvalor.".".$nvalor; 
+    } 
+    return $nvalor.",".$vfinal; 
+} 
+
+</script> 
+
+</body> 
+</html>
